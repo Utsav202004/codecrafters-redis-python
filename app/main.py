@@ -6,7 +6,9 @@ def main():
     conn, address = server_socket.accept() # wait for client
 
     while conn.recv(1024):
-        conn.sendall(b"+PONG\r\n")
+        data = conn.recv(1024)
+        if data == b"*1\r\n$4\r\nping\r\n":
+            conn.sendall(b"+PONG\r\n")
 
 
 if __name__ == "__main__":
